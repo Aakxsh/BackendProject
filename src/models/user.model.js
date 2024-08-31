@@ -10,7 +10,7 @@ const userSchema = new Schema (
             unique:true,
             lowercase:true,
             trim: true,
-            index : true
+            index : true // kisi bhi field ko agar searchable banana hai to uska index true krdo.
         },
 
         email:{
@@ -22,7 +22,7 @@ const userSchema = new Schema (
             
         },
 
-        fullname:{
+        fullName:{
             type:String,
             required :true,
             trim: true,
@@ -38,14 +38,14 @@ const userSchema = new Schema (
             type:String,
         },
 
-        watchhistory:[{
+        watchHistory:[{
             type: Schema.Types.ObjectId,
             ref: "Video",
         }],
 
         password:{
             type:String,
-            required:[true, "Password is requires"] // isme haumne define kar dia ki jo passwor required rhega.
+            required:[true, "Password is requires"] // isme humne define kar dia ki jo password required rhega || custom message pass kra hai.
         },
 
         refreshToken:{
@@ -59,7 +59,7 @@ const userSchema = new Schema (
 
 // bcrypt:
 userSchema.pre("save", async function (next) {
-    if(this.isModified("password")) return next();
+    if(!this.isModified("password")) return next();
     this.password = bcrypt.hash(this.password, 10);   // is code matlab hai ki jb bhi data update krenge to har baar password encrypt kr dega ye chij to galat hai isliye humne ise if statement me daala hai ki jab bhi password related work ho tabhi encrypt kare.
     next()
 })
@@ -72,12 +72,12 @@ userSchema.methods.isPasswordCorrect = async function(password){
 
 // JWt:
 // JWT is bearer token hai which means ye token jiske bhi pass hai me usko data bejhdunga, like jiske pass bhi key hai me lock khol dunga.
-userSchema.methods.generatedAccessToken = function(){
+userSchema.methods.generateAccessToken = function(){
     return jwt.sign({                          // jwt k pass sign method hota hai
         _id : this._id,
         email : this.email,
         username: this.username,
-        fullname : this.fullname,
+        fullname : this.fullName,
     },
 
     process.env.ACCESS_TOKEN_SECRET,
@@ -90,7 +90,7 @@ userSchema.methods.generatedAccessToken = function(){
 }
 
 
-userSchema.methods.refreshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     return jwt.sign({                          // jwt k pass sign method hota hai
         _id : this._id,
     },
@@ -105,3 +105,4 @@ userSchema.methods.refreshToken = function(){
 
 
 export const User = mongoose.model('User', userSchema)
+
