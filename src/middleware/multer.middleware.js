@@ -2,10 +2,10 @@ import multer from "multer";
 
 
 
-// ye code cloudinary se aya hai
+// code comes form cloudinary
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './public/temp')
+      cb(null, './public/temp') // cb- callback
     },
     filename: function (req, file, cb) {
     //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
@@ -15,4 +15,4 @@ const storage = multer.diskStorage({
     }
   })
   
-export  const upload = multer({ storage: storage })
+export  const upload = multer({ storage, })

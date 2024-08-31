@@ -1,13 +1,13 @@
 import {v2 as cloudinary} from 'cloudinary';
 import { log } from 'console';
-import fs from "fs";  // fs is known as file system and by default nodejs k sth aata hai.
+import fs from "fs";  // fs is known as file system and by default nodejs k sth aata hai, ye fs node ke andr milta hai.
 
 
-
+// comes from cloudinary
 cloudinary.config({ 
   cloud_name: 'process.env.CLOUDINARY_CLOUD_NAME', 
-  api_key: 'API_KEY', 
-  api_secret: 'CLOUDINARY_API_SECRET' 
+  api_key: 'process.env.CLOUDINARY_API_KEY', 
+  api_secret: 'process.env.CLOUDINARY_API_SECRET' 
 });
 
 
@@ -15,7 +15,7 @@ cloudinary.config({
 const uplaodOnCloudinary = async (localFilePath) => {
     try{
         if(!localFilePath) return null;
-        //uplado the file on cloudinary
+        //upload the file on cloudinary
         const response = await cloudinary.uploader.upload(localFilePath, {
             resource_type :"auto"
         })
@@ -32,4 +32,4 @@ const uplaodOnCloudinary = async (localFilePath) => {
 
 
 
-export {cloudinary}
+export {uplaodOnCloudinary}
