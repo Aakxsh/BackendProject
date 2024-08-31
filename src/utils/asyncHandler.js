@@ -20,7 +20,7 @@ export {asyncHandler}
 // // HigherOrder function -> Jo function ko as a parameter bhi accept karte hai ya fir variable return kar skte hai.
 // const asyncHandler = (fn) => async (err, req, res, next) => {
 //     try{
-//         await (err, req, res, next)
+//         await fn(err, req, res, next)
 
 //     }catch (error){
 //         res.status(err.code || 500).json({

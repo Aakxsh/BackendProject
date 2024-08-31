@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'; 
 
 
 
@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express()
 
-// cross origin resources -> ka matlab hai ki datakisis bhi browser se aaega to handle karna
+// cross origin resources -> ka matlab hai ki data kisis bhi browser se aaega to handle karna
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
     credentials : true
