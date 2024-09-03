@@ -60,7 +60,7 @@ const userSchema = new Schema (
 // bcrypt:
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password, 10);   // is code matlab hai ki jb bhi data update krenge to har baar password encrypt kr dega ye chij to galat hai isliye humne ise if statement me daala hai ki jab bhi password related work ho tabhi encrypt kare.
+    this.password = await bcrypt.hash(this.password, 10);   // is code matlab hai ki jb bhi data update krenge to har baar password encrypt kr dega ye chij to galat hai isliye humne ise if statement me daala hai ki jab bhi password related work ho tabhi encrypt kare.
     next()
 })
 
