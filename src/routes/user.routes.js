@@ -1,6 +1,6 @@
 import  {Router} from "express";
 import {upload} from "../middleware/multer.middleware.js" 
-import { registerUser } from "../controllers/user.controller.js";
+import { loginUser, logoutUser, registerUser } from "../controllers/user.controller.js";
 
 
 
@@ -14,7 +14,7 @@ router.route("/register").post(upload.fields([
         maxCount : 1,
     },
     {
-        name:" coverImage",
+        name:"coverImage",
         maxCount:1
     }
 ]),
@@ -22,11 +22,11 @@ router.route("/register").post(upload.fields([
 registerUser)
 
 
+router.route("/login").post(loginUser)
 
 
-
-
-
+// secured routes
+router.route("/logout").post(verifyJWT, logoutUser)
 export default router 
 
 export {registerUser}
