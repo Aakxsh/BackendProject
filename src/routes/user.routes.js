@@ -17,6 +17,13 @@ router.route("/register").post(upload.fields([
 ]),
 
 registerUser)
+
+
+router.route("/login").post(loginUser)
+
+
+// secured routes
+router.route("/logout").post(verifyJWT, logoutUser)
 export default router 
 
 export {registerUser}
