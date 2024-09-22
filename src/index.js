@@ -5,7 +5,12 @@ dotenv.config({
 import connectionDB from "./db/index.js";
 import app from "./app.js";
 
+// console.log("the cloudinary configurations is from index file: " , process.env.CLOUDINARY_CLOUD_NAME);
+console.log("the db config from folder is: " , process.env.MONGODB_URI);
 
+//this statement will print all the available env variables
+
+// console.log('Process Env:', process.env);
 connectionDB()
 .then(() => {
     app.listen(process.env.PORT || 8000, () => {
