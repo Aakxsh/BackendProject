@@ -80,8 +80,8 @@ const registerUser = asyncHandler(async(req, res) => {
     
     // check for image, check for avatar
     // multer gives you the files ka access
-    const avatarLocalPath =  req.files?.avatar?.[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
+    const avatarLocalPath =  req.files?.avatar[0]?.path;
+    const coverImageLocalPath = req.files?.coverImage[0]?.path;
 
 
     if(!avatarLocalPath){
