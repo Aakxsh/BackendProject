@@ -45,8 +45,9 @@ const registerUser = asyncHandler(async(req, res) => {
 
 
     //get user details from frontend
+    // console.log("user is clicked")
     const {fullName, email, username, password}= req.body
-    console.log(email, password)
+    
 
 
     // agr ek check karna ho to bs if case ya fir beginner can use more if else condition
@@ -80,25 +81,29 @@ const registerUser = asyncHandler(async(req, res) => {
     
     // check for image, check for avatar
     // multer gives you the files ka access
-    const avatarLocalPath =  req.files?.avatar?.[0]?.path;
+    const avatarLocalPath =  req.files?.avatar?.[0]?.path.trim();
+    
+
+    
     const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
 
-
-    if(!avatarLocalPath){
-        throw new ApiError(400, "Avatar file is required")
+     console.log("the path is: " , req.files?.avatar[0]?.path);
+    if(!avatarLocalPath || avatarLocalPath === ""){
+        throw new ApiError(400, "Avatar localpath file is required")
     }
 
 
 
     //upload them to cloudinary, avatar
     const avatar = await uploadOnCloudinary(avatarLocalPath)
+    
 
     const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
 
 
     if(!avatar){
-        throw new ApiError(400, "Avatar file is required")
+        throw new ApiError(400, "Avatar cloudinary file is required")
     }
 
 
